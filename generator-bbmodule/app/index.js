@@ -23,7 +23,7 @@ var BbmoduleGenerator = yeoman.generators.Base.extend({
     console.log(this.yeoman);
 
     // replace it with a short and sweet description of your generator
-    console.log(chalk.magenta('You\'re using the fantastic Bbmodule generator.'));
+    console.log(chalk.magenta('You\'re using the fantastic Backbone module generator.'));
 
     var prompts = [{
       type: 'confirm',
