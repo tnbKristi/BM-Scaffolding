@@ -73,17 +73,9 @@ var SubmoduleGenerator = yeoman.generators.Base.extend({
                 this.targetDir = '';
             }
 
+            this.parentModule = props.parentModule;
             this.moduleName = props.moduleName;
             this.moduleType = props.moduleType;
-
-            if(props.parentModule) {
-                this.parentModule = props.parentModule;
-                this.moduleClass = _.classify(this.parentModule) + '.' + _.classify(this.moduleName);
-            } else {
-                this.moduleClass = _.classify(this.moduleName);
-            }
-
-            this.moduleBaseClass = _.classify(this.moduleName);
 
           done();
         }.bind(this));
@@ -99,9 +91,13 @@ var SubmoduleGenerator = yeoman.generators.Base.extend({
         subModDir = this.targetDir + this.moduleName;
     }
 
+    this.moduleBaseClass = _.classify(this.moduleName);
+
     if(this.parentModule) {
+        this.moduleClass = _.classify(this.parentModule) + '.' + _.classify(this.moduleName);
         this.templatePath = _.slugify(this.parentModule) + '/' + _.slugify(this.moduleName);
     } else {
+        this.moduleClass = _.classify(this.moduleName);
         this.templatePath =  _.slugify(this.moduleName);
     }
 
