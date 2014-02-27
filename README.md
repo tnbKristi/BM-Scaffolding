@@ -1,10 +1,9 @@
-BM-Scaffolding
+generator-bbmodule - A Backbone/Marionette Scaffolding Helper
 ==============
 
 Basic module scaffolding pattern for building sub-apps within a Backbone Marionette Application. 
 
-Reference this repo for great pattern examples:
-
+Reference this repo for great pattern examples:  
 http://github.com/davidsulc/marionette-gentle-introduction
 
 
