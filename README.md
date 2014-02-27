@@ -8,8 +8,21 @@ Reference this repo for great pattern examples:
 http://github.com/davidsulc/marionette-gentle-introduction
 
 
-# Anatomy of an App
-![Anatomy of an App](https://docs.google.com/drawings/d/1-RPDMfAtH2376cUGESFmfjTL3VlWG6QHTwSu3J0Mp68/pub?w=960&h=720)
+# Installation
+
+`npm install -g generator-bbmodule`
+
+Make sure you have yeoman installed! `npm install -g yeoman`
+
+# Usage
+
+Start a new module, use the core generator:  
+`yo bbmodule`
+
+To create a sub-module or component, use the sub-generator:  
+`yo bbmodule:submodule`
+
+For both, you will be guided through the steps required to namespace your modules. 
 
 
 ## Example Folder Structure

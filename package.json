@@ -1,15 +1,12 @@
 {
   "name": "generator-bbmodule",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Yeoman generator for creating Backbone/Marionette App Modules & Components.",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "tnbKristi/generator-bbmodule",
-  "author": {
-    "name": "",
-    "email": "",
-    "url": "https://github.com/tnbKristi"
-  },
+  "author": "Kristi Centinaro <kristi@theresnobox.net>",
+
   "engines": {
     "node": ">=0.10.0"
   },
