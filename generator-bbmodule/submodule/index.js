@@ -16,6 +16,7 @@ var SubmoduleGenerator = yeoman.generators.Base.extend({
     if (this.options.targetDir) {
         this.targetDir = this.options.targetDir + '/';
         this.moduleName = this.options.moduleName;
+        this.parentModule = this.options.parentModule;
         done();
     } else {
         prompts = [
@@ -46,18 +47,43 @@ var SubmoduleGenerator = yeoman.generators.Base.extend({
                   return false;
                 }
             }
+        }, {
+            type: 'confirm',
+            name: 'isStandalone',
+            message: 'Is this a Standalone Module? (do not nest under parent, ie: Example.SubModule)',
+            default: true
+
+        }, {
+            type: 'input',
+            name: 'parentModule',
+            message: 'Ok, what\'s the parent Module\'s name?',
+            when: function (answers) {
+                if (answers.isStandalone === false) {
+                  return true;
+                } else {
+                  return false;
+                }
+            }
         }];
 
         this.prompt(prompts, function (props) {
-          if (props.targetDir) {
-            this.targetDir = props.targetDir + '/';
-          } else {
-            this.targetDir = '';
-          }
+            if (props.targetDir) {
+                this.targetDir = props.targetDir + '/';
+            } else {
+                this.targetDir = '';
+            }
 
-          this.moduleName = props.moduleName;
-          this.moduleClass = _.classify(this.moduleName);
-          this.moduleType = props.moduleType;
+            this.moduleName = props.moduleName;
+            this.moduleType = props.moduleType;
+
+            if(props.parentModule) {
+                this.parentModule = props.parentModule;
+                this.moduleClass = _.classify(this.parentModule) + '.' + _.classify(this.moduleName);
+            } else {
+                this.moduleClass = _.classify(this.moduleName);
+            }
+
+            this.moduleBaseClass = _.classify(this.moduleName);
 
           done();
         }.bind(this));
@@ -71,6 +97,12 @@ var SubmoduleGenerator = yeoman.generators.Base.extend({
         subModDir = this.targetDir + 'components/' + this.moduleName;
     } else {
         subModDir = this.targetDir + this.moduleName;
+    }
+
+    if(this.parentModule) {
+        this.templatePath = _.slugify(this.parentModule) + '/' + _.slugify(this.moduleName);
+    } else {
+        this.templatePath =  _.slugify(this.moduleName);
     }
 
     this.mkdir(subModDir);

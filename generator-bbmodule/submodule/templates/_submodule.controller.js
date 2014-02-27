@@ -1,20 +1,21 @@
  (function() {
-    App.module('Example.Submodule', function (Submodule, App, Backbone, Marionette, $, _) {
+    App.module('<%= moduleClass %>', function (<%= moduleBaseClass %>, App, Backbone, Marionette, $, _) {
 
-        Submodule.Controller = App.Controllers.Base.extend({
+        <%= moduleBaseClass %>.Controller = App.Controllers.Base.extend({
             // Rules to components:
             // called within this controller
             // uses a region inside this controllers baseView (aka Layout)
             // bound to this controller
             Components: {
-                Header: Submodule.Header.Controller,
-                Sidebar: Submodule.Sidebar.Controller
+                Header: <%= moduleBaseClass %>.Header.Controller,
+                Sidebar: <%= moduleBaseClass %>.Sidebar.Controller
             },
             activeComponents: undefined,
 
             initialize: function(options) {
                 this.region = options.region;
-                this.View = Submodule.View;
+                this.View = <%= moduleBaseClass %>.View;
+                // example request to an entity (model or collection)
                 this.entity = App.request('entities:profile');
                 
                 this.activeComponents = {};
@@ -44,7 +45,7 @@
             },
             
             showHeader: function() {
-                this.activeComponents.header = new Submodule.Header({
+                this.activeComponents.header = new <%= moduleBaseClass %>.Header({
                     region: this.view.subRegion
                     entity: this.thing
                 });

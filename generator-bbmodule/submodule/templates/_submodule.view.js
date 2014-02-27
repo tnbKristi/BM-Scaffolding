@@ -1,14 +1,14 @@
 (function () {
-    App.module('Example.Submodule', function (Submodule, App, Backbone, Marionette, $, _) {
+    App.module('<%= moduleClass %>', function (<%= moduleBaseClass %>, App, Backbone, Marionette, $, _) {
 
         // general rule: attributes before methods
-        Submodule.View = App.Views.Layout.extend({
-            template: 'example/submodule',
+        <%= moduleBaseClass %>.View = App.Views.Layout.extend({
+            template: '<%= templatePath %>',
             className: 'submodule-main other-class',
             id: 'submodule-id',
             tagName: 'div',
             regions: {
-                testRegion: '.example-form-region'
+                testRegion: '.example-region'
             },
 
             events: {
@@ -34,14 +34,14 @@
         });
         
         // Other views relating to this submodule below
-        Submodule.ListView = App.Views.CompositeView.extend({
+        <%= moduleBaseClass %>.ListView = App.Views.CompositeView.extend({
             template: 'example/list-view',
             itemViewContainer: '.list-container',
             itemView: Submodule.ListItem,
             tagName: 'ul'
         });
         
-        Submodule.ListItem = App.Views.ItemView.extend({
+        <%= moduleBaseClass %>.ListItem = App.Views.ItemView.extend({
             template: 'example/list-item',
             tagName: 'li',
             className: 'list-item'

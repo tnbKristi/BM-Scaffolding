@@ -95,6 +95,7 @@ var BbmoduleGenerator = yeoman.generators.Base.extend({
       this.invoke('bbmodule:submodule', {
         options: {
           moduleName: this.baseSubModuleName,
+          parentModule: this.moduleName,
           targetDir: moduleDir
         }
       }, function () {
