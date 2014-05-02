@@ -6,28 +6,31 @@
             // called within this controller
             // uses a region inside this controllers baseView (aka Layout)
             // bound to this controller
-            Components: {
-                Header: <%= moduleBaseClass %>.Header.Controller,
-                Sidebar: <%= moduleBaseClass %>.Sidebar.Controller
-            },
+            Components: {},
             activeComponents: undefined,
 
             initialize: function(options) {
                 this.region = options.region;
                 this.View = <%= moduleBaseClass %>.View;
                 // example request to an entity (model or collection)
-                this.entity = App.request('entities:profile');
+                // this.entity = App.request('entities:profile');
                 
+                // Example declaration of Components
+                // this.Components = {
+                //     Header: <%= moduleBaseClass %>.Header.Controller
+                // }
+
+                // Register active components once started with new
                 this.activeComponents = {};
 
                 // fetch would be wrapped in a promise like when:fetched
-                this.entity.fetch();
+                // this.entity.fetch();
                 
                 // after dependencies are loaded, show the baseView
                 this.showBaseView();
                 
                 // example of submodule call
-                this.showHeader();
+                // this.showHeader();
                 
             },
 
@@ -39,17 +42,17 @@
             },
 
             showBaseView: function() {
-                var view = this.getBaseView();
+                this.view = this.getBaseView();
 
-                this.region.show(view);
+                this.region.show(this.view);
             },
             
-            showHeader: function() {
-                this.activeComponents.header = new <%= moduleBaseClass %>.Header({
-                    region: this.view.subRegion
-                    entity: this.thing
-                });
-            }
+            // showHeader: function() {
+            //     this.activeComponents.header = new <%= moduleBaseClass %>.Header({
+            //         region: this.view.subRegion,
+            //         entity: this.thing
+            //     });
+            // }
         });
 
     });

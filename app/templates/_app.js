@@ -3,7 +3,7 @@
         // can start with: App.Example.start()
         this.startWithParent = false;
 
-        <%= this.moduleClass %>.Router = Backbone.Marionette.AppRouter.extend({
+        <%= moduleClass %>.Router = Backbone.Marionette.AppRouter.extend({
              appRoutes: {
                  "<%= _.slugify(moduleName) %>(/)": "show"
              }
@@ -22,7 +22,7 @@
         // if you want the routes available when the app starts,
         // it has to load in with the app on initialize
         App.addInitializer(function () {
-            new <%= this.moduleClass %>.Router({
+            new <%= moduleClass %>.Router({
                  controller: API
              });
 

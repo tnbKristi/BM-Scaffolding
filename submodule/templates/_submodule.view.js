@@ -34,18 +34,18 @@
         });
         
         // Other views relating to this submodule below
-        <%= moduleBaseClass %>.ListView = App.Views.CompositeView.extend({
-            template: 'example/list-view',
-            itemViewContainer: '.list-container',
-            itemView: Submodule.ListItem,
-            tagName: 'ul'
-        });
+        // <%= moduleBaseClass %>.ListView = App.Views.CompositeView.extend({
+        //     template: 'example/list-view',
+        //     itemViewContainer: '.list-container',
+        //     itemView: Submodule.ListItem,
+        //     tagName: 'ul'
+        // });
         
-        <%= moduleBaseClass %>.ListItem = App.Views.ItemView.extend({
-            template: 'example/list-item',
-            tagName: 'li',
-            className: 'list-item'
-        });
+        // <%= moduleBaseClass %>.ListItem = App.Views.ItemView.extend({
+        //     template: 'example/list-item',
+        //     tagName: 'li',
+        //     className: 'list-item'
+        // });
 
 
     });
