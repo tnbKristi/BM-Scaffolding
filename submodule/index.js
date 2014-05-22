@@ -1,8 +1,7 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
-var _ = require('underscore.string');
-
+var inf = require('inflection');
 
 var SubmoduleGenerator = yeoman.generators.Base.extend({
   init: function () {
@@ -23,13 +22,13 @@ var SubmoduleGenerator = yeoman.generators.Base.extend({
         {
           type: 'list',
           name: 'moduleType',
-          message: 'Is this an independent SubModule, or a Component?',
-          choices: ["SubModule", "Component"],
+          message: 'What type of Module is this?',
+          choices: ["SubModule", "Component", "Entity"],
           default: 0
         },{
           type: 'input',
           name: 'moduleName',
-          message: 'What\'s the name of your module/component?',
+          message: 'What\'s the name of your module?',
           default: 'exampleModule'
         }, {
           type: 'confirm',
@@ -70,7 +69,7 @@ var SubmoduleGenerator = yeoman.generators.Base.extend({
             if (props.targetDir) {
                 this.targetDir = props.targetDir + '/';
             } else {
-                this.targetDir = '';
+                this.targetDir = './';
             }
 
             this.parentModule = props.parentModule;
@@ -85,25 +84,34 @@ var SubmoduleGenerator = yeoman.generators.Base.extend({
   app: function () {
     var subModDir;
 
+    this.inf = inf;
+
     if(this.moduleType === 'Component') {
         subModDir = this.targetDir + 'components/' + this.moduleName;
     } else {
         subModDir = this.targetDir + this.moduleName;
     }
 
-    this.moduleBaseClass = _.classify(this.moduleName);
+    this.moduleBaseClass = inf.classify(this.moduleName);
 
     if(this.parentModule) {
-        this.moduleClass = _.classify(this.parentModule) + '.' + _.classify(this.moduleName);
-        this.templatePath = _.slugify(this.parentModule) + '/' + _.slugify(this.moduleName);
+        this.moduleClass = inf.classify(this.parentModule) + '.' + inf.classify(this.moduleName);
+        this.templatePath = inf.dasherize(this.parentModule) + '/' + inf.dasherize(this.moduleName);
     } else {
-        this.moduleClass = _.classify(this.moduleName);
-        this.templatePath =  _.slugify(this.moduleName);
+        this.moduleClass = inf.classify(this.moduleName);
+        this.templatePath =  inf.dasherize(this.moduleName);
     }
 
-    this.mkdir(subModDir);
-    this.template('_submodule.controller.js', subModDir + '/' + this.moduleName + '.controller.js');    
-    this.template('_submodule.view.js', subModDir + '/' + this.moduleName + '.view.js');    
+    switch(this.moduleType) {
+      case 'Entity':
+        this.template('_submodule.entity.js', this.targetDir + this.moduleName + '.js'); 
+        break;
+      default:
+        this.mkdir(subModDir);
+        this.template('_submodule.controller.js', subModDir + '/' + this.moduleName + '.controller.js');    
+        this.template('_submodule.view.js', subModDir + '/' + this.moduleName + '.view.js');    
+    }
+
 
   }
 });
